@@ -66,7 +66,7 @@ namespace Pharmacy.Infrastructure.Services
 
             var salt = _encrypter.GetSalt(registerUserDto.Password);
             var hash = _encrypter.GetHash(registerUserDto.Password, salt);
-            user = new User(Guid.NewGuid(), registerUserDto.Email, registerUserDto.Username, hash, salt);
+            user = new User(Guid.NewGuid(), registerUserDto.Email, registerUserDto.Username, registerUserDto.Fullname, registerUserDto.Role, hash, salt);
             await _userRepository.AddAsync(user);
         }
     }

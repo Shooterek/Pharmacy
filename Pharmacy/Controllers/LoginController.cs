@@ -35,7 +35,7 @@ namespace Pharmacy.Controllers
             var user = await _userService.GetAsync(loginDto.Email);
 
             //TODO add roles
-            var jwt = _jwtHandler.CreateToken(user.Id, "Role");
+            var jwt = _jwtHandler.CreateToken(user.Id, user.Role);
             _cache.SetJwt(loginDto.TokenId, jwt);
 
             jwt = _cache.GetJwt(loginDto.TokenId);

@@ -10,6 +10,7 @@ namespace Pharmacy.Core.Models
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
         public string Username { get; protected set; }
+        public string Role { get; set; }
         public string FullName { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
@@ -18,11 +19,13 @@ namespace Pharmacy.Core.Models
         {
         }
 
-        public User(Guid userId, string email, string username, string password, string salt)
+        public User(Guid userId, string email, string username, string fullname, string role, string password, string salt)
         {
             Id = userId;
             SetEmail(email);
             SetUsername(username);
+            Role = role;
+            FullName = fullname;
             SetPassword(password, salt);
             CreatedAt = DateTime.UtcNow;
         }
