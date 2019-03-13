@@ -55,19 +55,18 @@ namespace Pharmacy.Infrastructure.Services
                 "Invalid credentials");
         }
 
-        public async Task RegisterAsync(Guid userId, string email,
-            string username, string password, string role)
+        public async Task RegisterAsync(RegisterUserDto registerUserDto)
         {
-            var user = await _userRepository.GetAsync(email);
+            var user = await _userRepository.GetAsync(registerUserDto.Email);
             if (user != null)
             {
                 throw new ServiceException(ErrorCodes.EmailInUse,
-                    $"User with email: '{email}' already exists.");
+                    $"User with email: '{registerUserDto.Email}' already exists.");
             }
 
-            var salt = _encrypter.GetSalt(password);
-            var hash = _encrypter.GetHash(password, salt);
-            user = new User(userId, email, username,hash, salt);
+            var salt = _encrypter.GetSalt(registerUserDto.Password);
+            var hash = _encrypter.GetHash(registerUserDto.Password, salt);
+            user = new User(Guid.NewGuid(), registerUserDto.Email, registerUserDto.Username, hash, salt);
             await _userRepository.AddAsync(user);
         }
     }

@@ -9,8 +9,7 @@ namespace Pharmacy.Infrastructure.Services
     {
         Task<UserDto> GetAsync(string email);
         Task<IEnumerable<UserDto>> BrowseAsync();
-        Task RegisterAsync(Guid userId, string email,
-            string username, string password, string role);
+        Task RegisterAsync(RegisterUserDto registerUserDto);
         Task LoginAsync(string email, string password);
     }
 }
