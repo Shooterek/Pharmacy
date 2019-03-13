@@ -20,6 +20,7 @@ namespace Pharmacy.Infrastructure.IoC
                 .SingleInstance();
             builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule(new SettingsModule(_configuration));
         }
     }
 }
