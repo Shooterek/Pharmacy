@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Pharmacy.Infrastructure.Services;
 
 namespace Pharmacy.Controllers
 {
@@ -10,10 +11,18 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public ValuesController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task <ActionResult<IEnumerable<string>>> Get()
         {
+            await _userService.GetAsync("dasd@DASDS.CS");
             return new string[] { "value1", "value2" };
         }
 
