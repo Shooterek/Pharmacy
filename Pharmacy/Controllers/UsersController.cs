@@ -40,7 +40,7 @@ namespace Pharmacy.Controllers
         {
             await _userService.RegisterAsync(user);
 
-            return Created($"users/{user.Email}", null);
+            return Created($"api/users/{user.Email}", null);
         }
     }
 }
