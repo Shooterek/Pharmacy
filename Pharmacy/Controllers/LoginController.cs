@@ -13,7 +13,7 @@ namespace Pharmacy.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : Controller
+    public class LoginController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IJwtHandler _jwtHandler;
@@ -33,13 +33,12 @@ namespace Pharmacy.Controllers
 
             await _userService.LoginAsync(loginDto.Email, loginDto.Password);
             var user = await _userService.GetAsync(loginDto.Email);
-
-            //TODO add roles
+            
             var jwt = _jwtHandler.CreateToken(user.Id, user.Role);
             _cache.SetJwt(loginDto.TokenId, jwt);
 
             jwt = _cache.GetJwt(loginDto.TokenId);
-            return Json(jwt);
+            return Ok(jwt);
         }
     }
 }

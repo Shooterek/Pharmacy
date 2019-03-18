@@ -20,7 +20,7 @@ namespace Pharmacy.Controllers
         {
             var users = await _userService.BrowseAsync();
 
-            return Json(users);
+            return Ok(users);
         }
 
         [HttpGet("{email}")]
@@ -32,7 +32,7 @@ namespace Pharmacy.Controllers
                 return NotFound();
             }
 
-            return Json(user);
+            return Ok(user);
         }
 
         [HttpPost]
