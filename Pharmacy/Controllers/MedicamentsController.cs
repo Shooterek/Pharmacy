@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Services;
 
 namespace Pharmacy.Controllers
@@ -12,7 +13,7 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class MedicamentsController : ControllerBase
     {
-        private IMedicamentService _medicamentService;
+        private readonly IMedicamentService _medicamentService;
 
         public MedicamentsController(IMedicamentService medicamentService)
         {
@@ -24,6 +25,15 @@ namespace Pharmacy.Controllers
             var medicaments = await _medicamentService.GetAllAsync();
 
             return Ok(medicaments);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(MedicamentDto medicament)
+        {
+            //TODO Add validation
+            var result = await _medicamentService.AddAsync(medicament);
+
+            return Created($"api/medicaments/{result.Id}", result);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Pharmacy.Infrastructure.DTO
 {
     public class MedicamentDto
     {
-        public Guid MedicamentId { get; set; }
+        public Guid Id{ get; set; }
         public string Name { get; set; }
         public string EanCode { get; set; }
         public bool IsRefunded { get; set; }

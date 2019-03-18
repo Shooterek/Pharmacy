@@ -8,5 +8,6 @@ namespace Pharmacy.Core.Repositories
     public interface IMedicamentRepository : IRepository
     {
         Task<IEnumerable<Medicament>> GetAllAsync();
+        Task<Medicament> AddAsync(Medicament medicament);
     }
 }

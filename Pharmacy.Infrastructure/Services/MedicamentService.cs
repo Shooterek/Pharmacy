@@ -24,5 +24,12 @@ namespace Pharmacy.Infrastructure.Services
 
             return _mapper.Map<IEnumerable<Medicament>, IEnumerable<MedicamentDto>>(medicaments);
         }
+
+        public async Task<MedicamentDto> AddAsync(MedicamentDto medicament)
+        {
+            var result = await _medicamentRepository.AddAsync(_mapper.Map<MedicamentDto, Medicament>(medicament));
+
+            return _mapper.Map<Medicament, MedicamentDto>(result);
+        }
     }
 }

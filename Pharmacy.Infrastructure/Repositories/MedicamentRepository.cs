@@ -9,7 +9,7 @@ namespace Pharmacy.Infrastructure.Repositories
 {
     public class MedicamentRepository : IMedicamentRepository
     {
-        private PharmacyContext _context;
+        private readonly PharmacyContext _context;
 
         public MedicamentRepository(PharmacyContext context)
         {
@@ -18,5 +18,13 @@ namespace Pharmacy.Infrastructure.Repositories
 
         public async Task<IEnumerable<Medicament>> GetAllAsync()
             => await _context.Medicaments.ToListAsync();
+
+        public async Task<Medicament> AddAsync(Medicament medicament)
+        {
+            var result = _context.Medicaments.Add(medicament);
+            await _context.SaveChangesAsync();
+
+            return result.Entity;
+        }
     }
 }
