@@ -20,6 +20,7 @@ namespace Pharmacy.Controllers
             _medicamentService = medicamentService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var medicaments = await _medicamentService.GetAllAsync();

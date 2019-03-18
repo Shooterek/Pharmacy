@@ -16,6 +16,7 @@ namespace Pharmacy.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var users = await _userService.BrowseAsync();

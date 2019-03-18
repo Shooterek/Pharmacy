@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +24,7 @@ using Pharmacy.Infrastructure.EF;
 using Pharmacy.Infrastructure.Extensions;
 using Pharmacy.Infrastructure.IoC;
 using Pharmacy.Infrastructure.Settings;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Pharmacy
 {
@@ -96,6 +99,11 @@ namespace Pharmacy
                 })
                 .AddCustomAuth(op => { });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info() { Title = "Pharmacy", Version = "v1" });
+            });
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(module: new ContainerModule(Configuration));
@@ -111,6 +119,13 @@ namespace Pharmacy
             app.UseAuthentication();
             app.UseMvc();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web App V1");
+            });
+
         }
     }
 }
