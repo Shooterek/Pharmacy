@@ -124,6 +124,7 @@ namespace Pharmacy
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web App V1");
+                c.RoutePrefix = String.Empty;
             });
 
         }
