@@ -29,7 +29,7 @@ namespace Pharmacy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(MedicamentDto medicament)
+        public async Task<IActionResult> Post([FromBody]MedicamentDto medicament)
         {
             //TODO Add validation
             var result = await _medicamentService.AddAsync(medicament);
