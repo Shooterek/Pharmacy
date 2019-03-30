@@ -11,6 +11,8 @@ namespace Pharmacy.Infrastructure.Mappers
                 {
                     cfg.CreateMap<User, UserDto>();
                     cfg.CreateMap<Medicament, MedicamentDto>();
+                    cfg.CreateMap<MedicamentDto, Medicament>()
+                        .ForMember(x => x.PrescriptionElements, member => member.Ignore());
                     cfg.CreateMap<Prescription, PrescriptionDto>();
                     cfg.CreateMap<PrescriptionDto, Prescription>();
                     cfg.CreateMap<PrescriptionElement, PrescriptionElementDto>()
