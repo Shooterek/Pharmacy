@@ -17,11 +17,9 @@ namespace Pharmacy.Controllers
     {
         private readonly IUserService _userService;
         private readonly IJwtHandler _jwtHandler;
-        private readonly IMemoryCache _cache;
 
-        public LoginController(IMemoryCache cache, IJwtHandler jwtHandler, IUserService userService)
+        public LoginController(IJwtHandler jwtHandler, IUserService userService)
         {
-            _cache = cache;
             _jwtHandler = jwtHandler;
             _userService = userService;
         }
@@ -29,15 +27,10 @@ namespace Pharmacy.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]LoginDto loginDto)
         {
-            loginDto.TokenId = Guid.NewGuid();
-
             await _userService.LoginAsync(loginDto.Email, loginDto.Password);
             var user = await _userService.GetAsync(loginDto.Email);
             
             var jwt = _jwtHandler.CreateToken(user.Id, user.Role);
-            _cache.SetJwt(loginDto.TokenId, jwt);
-
-            jwt = _cache.GetJwt(loginDto.TokenId);
             return Ok(jwt);
         }
     }
