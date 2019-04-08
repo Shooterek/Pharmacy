@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -104,6 +105,8 @@ namespace Pharmacy
                 c.SwaggerDoc("v1", new Info() { Title = "Pharmacy", Version = "v1" });
             });
 
+            services.AddOData();
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(module: new ContainerModule(Configuration));
@@ -117,7 +120,12 @@ namespace Pharmacy
             app.UseCustomExceptionHandler();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseMvc(routeBuilder =>
+            {
+                routeBuilder.EnableDependencyInjection();
+                routeBuilder.Filter();
+
+            });
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
 
             app.UseSwagger();
