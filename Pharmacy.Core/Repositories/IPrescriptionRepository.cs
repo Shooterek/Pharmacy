@@ -7,7 +7,7 @@ namespace Pharmacy.Core.Repositories
 {
     public interface IPrescriptionRepository : IRepository
     {
-        Task<Prescription> AddAsync(Prescription prescription);
+        Prescription Add(Prescription prescription);
         Task<IEnumerable<Prescription>> GetAllAsync();
         Task<Prescription> GetAsync(Guid id);
     }

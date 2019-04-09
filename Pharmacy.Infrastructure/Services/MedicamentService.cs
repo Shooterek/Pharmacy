@@ -4,18 +4,21 @@ using AutoMapper;
 using Pharmacy.Core.Models;
 using Pharmacy.Core.Repositories;
 using Pharmacy.Infrastructure.DTO;
+using Pharmacy.Infrastructure.Repositories;
 
 namespace Pharmacy.Infrastructure.Services
 {
     public class MedicamentService : IMedicamentService
     {
         private IMedicamentRepository _medicamentRepository;
+        private UnitOfWork _unitOfWork;
         private IMapper _mapper;
 
-        public MedicamentService(IMedicamentRepository medicamentRepository, IMapper mapper)
+        public MedicamentService(IMedicamentRepository medicamentRepository, IMapper mapper, UnitOfWork unitOfWork)
         {
             _medicamentRepository = medicamentRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IEnumerable<MedicamentDto>> GetAllAsync()
@@ -27,7 +30,8 @@ namespace Pharmacy.Infrastructure.Services
 
         public async Task<MedicamentDto> AddAsync(MedicamentDto medicament)
         {
-            var result = await _medicamentRepository.AddAsync(_mapper.Map<MedicamentDto, Medicament>(medicament));
+            var result = _medicamentRepository.Add(_mapper.Map<MedicamentDto, Medicament>(medicament));
+            await _unitOfWork.Commit();
 
             return _mapper.Map<Medicament, MedicamentDto>(result);
         }

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Autofac;
 using Pharmacy.Core.Repositories;
+using Pharmacy.Infrastructure.Repositories;
 
 namespace Pharmacy.Infrastructure.IoC.Modules
 {
@@ -16,6 +17,8 @@ namespace Pharmacy.Infrastructure.IoC.Modules
                 .Where(x => x.IsAssignableTo<IRepository>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
         }
     }
 }

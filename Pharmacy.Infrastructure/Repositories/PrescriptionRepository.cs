@@ -17,11 +17,9 @@ namespace Pharmacy.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Prescription> AddAsync(Prescription prescription)
+        public Prescription Add(Prescription prescription)
         {
             var result = _context.Prescriptions.Add(prescription);
-            await _context.SaveChangesAsync();
-
             return result.Entity;
         }
 
