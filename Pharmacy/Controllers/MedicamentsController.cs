@@ -33,7 +33,7 @@ namespace Pharmacy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]MedicamentDto medicament)
+        public async Task<IActionResult> Post(MedicamentDto medicament)
         {
             //TODO Add validation
             var result = await _medicamentService.AddAsync(medicament);
@@ -41,9 +41,13 @@ namespace Pharmacy.Controllers
             return Created($"api/medicaments/{result.Id}", result);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody]MedicamentDto medicament)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, MedicamentDto medicament)
         {
+            if (id != medicament.Id)
+            {
+                return BadRequest();
+            }
             await _medicamentService.UpdateAsync(medicament);
 
             return Ok();
