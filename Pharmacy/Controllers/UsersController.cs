@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Services;
+using Pharmacy.Infrastructure.Services.Interfaces;
 
 namespace Pharmacy.Controllers
 {

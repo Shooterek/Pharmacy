@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Services;
+using Pharmacy.Infrastructure.Services.Interfaces;
 
 namespace Pharmacy.Controllers
 {
@@ -29,12 +31,24 @@ namespace Pharmacy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]MedicamentDto medicament)
+        public async Task<IActionResult> Post(MedicamentDto medicament)
         {
             //TODO Add validation
             var result = await _medicamentService.AddAsync(medicament);
 
             return Created($"api/medicaments/{result.Id}", result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, MedicamentDto medicament)
+        {
+            if (id != medicament.Id)
+            {
+                return BadRequest();
+            }
+            await _medicamentService.UpdateAsync(medicament);
+
+            return Ok();
         }
     }
 }

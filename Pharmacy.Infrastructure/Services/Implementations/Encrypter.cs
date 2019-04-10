@@ -1,8 +1,9 @@
-﻿using Pharmacy.Infrastructure.Extensions;
-using System;
+﻿using System;
 using System.Security.Cryptography;
+using Pharmacy.Infrastructure.Extensions;
+using Pharmacy.Infrastructure.Services.Interfaces;
 
-namespace Pharmacy.Infrastructure.Services
+namespace Pharmacy.Infrastructure.Services.Implementations
 {
     public class Encrypter : IEncrypter
     {

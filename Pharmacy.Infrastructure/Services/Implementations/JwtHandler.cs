@@ -5,9 +5,10 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Extensions;
+using Pharmacy.Infrastructure.Services.Interfaces;
 using Pharmacy.Infrastructure.Settings;
 
-namespace Pharmacy.Infrastructure.Services
+namespace Pharmacy.Infrastructure.Services.Implementations
 {
     public class JwtHandler : IJwtHandler
     {

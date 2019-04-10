@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using Autofac;
 using Pharmacy.Infrastructure.Services;
+using Pharmacy.Infrastructure.Services.Implementations;
+using Pharmacy.Infrastructure.Services.Interfaces;
 
 namespace Pharmacy.Infrastructure.IoC.Modules
 {

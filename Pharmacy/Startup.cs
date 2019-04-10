@@ -117,7 +117,6 @@ namespace Pharmacy
             app.UseCustomExceptionHandler();
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
-            app.UseMvc();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
 
             app.UseSwagger();

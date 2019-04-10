@@ -11,6 +11,8 @@ namespace Pharmacy.Infrastructure.EF
         public DbSet<Medicament> Medicaments { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<PrescriptionElement> PrescriptionElements { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderElement> OrderElements { get; set; }
 
         public PharmacyContext(DbContextOptions<PharmacyContext> options) : base(options)
         {
@@ -26,6 +28,22 @@ namespace Pharmacy.Infrastructure.EF
 
             var prescriptionItemBuilder = modelBuilder.Entity<Prescription>();
             prescriptionItemBuilder.HasKey(x => x.Id);
+
+            var orderItemBuilder = modelBuilder.Entity<Order>();
+            orderItemBuilder.HasKey(x => x.Id);
+
+            var orderElementItemBuilder = modelBuilder.Entity<OrderElement>();
+            orderElementItemBuilder.HasKey(x => new { x.MedicamentId, x.OrderId });
+
+            orderElementItemBuilder
+                .HasOne(x => x.Medicament)
+                .WithMany(x => x.OrderElements)
+                .HasForeignKey(x => x.MedicamentId);
+
+            orderElementItemBuilder
+                .HasOne(x => x.Order)
+                .WithMany(x => x.Elements)
+                .HasForeignKey(x => x.OrderId);
 
             var prescriptionElementItemBuilder = modelBuilder.Entity<PrescriptionElement>();
             prescriptionElementItemBuilder.HasKey(x => new {x.MedicamentId, x.PrescriptionId});

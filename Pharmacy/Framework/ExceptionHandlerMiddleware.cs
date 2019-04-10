@@ -41,7 +41,7 @@ namespace Pharmacy.Framework
                     statusCode = HttpStatusCode.Unauthorized;
                     break;
                 case ServiceException e when exceptionType == typeof(ServiceException):
-                    statusCode = HttpStatusCode.BadRequest;
+                    statusCode = e.Code.Equals(ErrorCodes.ResourceNotFound) ? HttpStatusCode.NotFound : HttpStatusCode.BadRequest;
                     errorCode = e.Code;
                     break;
                 case Exception e when exceptionType == typeof(Exception):

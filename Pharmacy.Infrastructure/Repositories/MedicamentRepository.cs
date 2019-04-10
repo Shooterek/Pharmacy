@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Core.Models;
@@ -19,12 +20,19 @@ namespace Pharmacy.Infrastructure.Repositories
         public async Task<IEnumerable<Medicament>> GetAllAsync()
             => await _context.Medicaments.ToListAsync();
 
-        public async Task<Medicament> AddAsync(Medicament medicament)
+        public async Task<Medicament> GetAsync(Guid id)
+            => await _context.Medicaments.SingleOrDefaultAsync(m => m.Id == id);
+
+        public Medicament Add(Medicament medicament)
         {
             var result = _context.Medicaments.Add(medicament);
-            await _context.SaveChangesAsync();
 
             return result.Entity;
+        }
+
+        public void Update(Medicament medicament)
+        {
+            _context.Update(medicament);
         }
     }
 }

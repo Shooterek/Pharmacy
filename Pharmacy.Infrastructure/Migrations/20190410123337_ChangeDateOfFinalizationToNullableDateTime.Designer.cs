@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Infrastructure.EF;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyContext))]
-    partial class PharmacyContextModelSnapshot : ModelSnapshot
+    [Migration("20190410123337_ChangeDateOfFinalizationToNullableDateTime")]
+    partial class ChangeDateOfFinalizationToNullableDateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,8 +49,6 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<DateTime>("DateOfIssue");
 
                     b.Property<Guid>("PharmacistId");
-
-                    b.Property<string>("Status");
 
                     b.HasKey("Id");
 
