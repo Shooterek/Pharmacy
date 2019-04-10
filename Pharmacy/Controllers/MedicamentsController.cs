@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Infrastructure.DTO;
@@ -24,7 +23,6 @@ namespace Pharmacy.Controllers
         }
 
         [HttpGet]
-        [EnableQuery]
         public async Task<IActionResult> Get()
         {
             var medicaments = await _medicamentService.GetAllAsync();
