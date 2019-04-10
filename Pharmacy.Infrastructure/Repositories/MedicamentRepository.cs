@@ -29,5 +29,10 @@ namespace Pharmacy.Infrastructure.Repositories
 
             return result.Entity;
         }
+
+        public void Update(Medicament medicament)
+        {
+            _context.Update(medicament);
+        }
     }
 }

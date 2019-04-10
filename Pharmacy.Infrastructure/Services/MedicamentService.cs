@@ -10,9 +10,9 @@ namespace Pharmacy.Infrastructure.Services
 {
     public class MedicamentService : IMedicamentService
     {
-        private IMedicamentRepository _medicamentRepository;
-        private UnitOfWork _unitOfWork;
-        private IMapper _mapper;
+        private readonly IMedicamentRepository _medicamentRepository;
+        private readonly UnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public MedicamentService(IMedicamentRepository medicamentRepository, IMapper mapper, UnitOfWork unitOfWork)
         {
@@ -34,6 +34,12 @@ namespace Pharmacy.Infrastructure.Services
             await _unitOfWork.Commit();
 
             return _mapper.Map<Medicament, MedicamentDto>(result);
+        }
+
+        public async Task UpdateAsync(MedicamentDto medicament)
+        {
+            _medicamentRepository.Update(_mapper.Map<MedicamentDto, Medicament>(medicament));
+            await _unitOfWork.Commit();
         }
     }
 }

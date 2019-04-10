@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +38,14 @@ namespace Pharmacy.Controllers
             var result = await _medicamentService.AddAsync(medicament);
 
             return Created($"api/medicaments/{result.Id}", result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody]MedicamentDto medicament)
+        {
+            await _medicamentService.UpdateAsync(medicament);
+
+            return Ok();
         }
     }
 }

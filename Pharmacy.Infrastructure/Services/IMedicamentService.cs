@@ -8,5 +8,6 @@ namespace Pharmacy.Infrastructure.Services
     {
         Task<IEnumerable<MedicamentDto>> GetAllAsync();
         Task<MedicamentDto> AddAsync(MedicamentDto medicament);
+        Task UpdateAsync(MedicamentDto medicament);
     }
 }

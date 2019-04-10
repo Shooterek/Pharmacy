@@ -11,5 +11,6 @@ namespace Pharmacy.Core.Repositories
         Task<IEnumerable<Medicament>> GetAllAsync();
         Task<Medicament> GetAsync(Guid id);
         Medicament Add(Medicament medicament);
+        void Update(Medicament medicament);
     }
 }
