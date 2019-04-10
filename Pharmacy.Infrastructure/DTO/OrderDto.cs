@@ -13,6 +13,7 @@ namespace Pharmacy.Infrastructure.DTO
         public Guid Id { get; set; }
         public Guid PharmacistId { get; set; }
         public UserDto Pharmacist { get; set; }
+        public string Status { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime? DateOfFinalization { get; set; }
         public IEnumerable<OrderElementDto> Elements { get; set; }

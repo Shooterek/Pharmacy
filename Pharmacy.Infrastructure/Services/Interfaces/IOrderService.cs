@@ -10,5 +10,6 @@ namespace Pharmacy.Infrastructure.Services.Interfaces
         Task<IEnumerable<OrderDto>> GetAllAsync();
         Task<OrderDto> AddAsync(OrderDto order);
         Task<OrderDto> GetAsync(Guid id);
+        Task UpdateAsync(OrderDto order);
     }
 }

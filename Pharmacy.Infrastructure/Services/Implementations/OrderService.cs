@@ -35,6 +35,7 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
         public async Task<OrderDto> AddAsync(OrderDto order)
         {
+            order.Status = OrderStatus.Created;
             var result = _orderRepository.Add(_mapper.Map<OrderDto, Order>(order));
             await _unitOfWork.Commit();
 
@@ -50,6 +51,16 @@ namespace Pharmacy.Infrastructure.Services.Implementations
                 throw new ServiceException(ErrorCodes.ResourceNotFound);
             }
             return _mapper.Map<Order, OrderDto>(result);
+        }
+
+        public async Task UpdateAsync(OrderDto order)
+        {
+            if (order.Status.Equals(OrderStatus.Completed) && order.DateOfFinalization == null)
+            {
+                order.DateOfFinalization = DateTime.UtcNow;
+            }
+            _orderRepository.Update(_mapper.Map<OrderDto, Order>(order));
+            await _unitOfWork.Commit();
         }
     }
 }

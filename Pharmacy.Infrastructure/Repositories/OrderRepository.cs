@@ -30,5 +30,10 @@ namespace Pharmacy.Infrastructure.Repositories
 
         public async Task<Order> GetAsync(Guid id)
             => await _pharmacyContext.Orders.Include(o => o.Elements).SingleOrDefaultAsync(o => o.Id == id);
+
+        public void Update(Order order)
+        {
+            _pharmacyContext.Update(order);
+        }
     }
 }

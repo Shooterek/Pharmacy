@@ -44,5 +44,18 @@ namespace Pharmacy.Controllers
 
             return Created($"api/orders/{result.Id}", result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, OrderDto order)
+        {
+            if (id != order.Id)
+            {
+                return BadRequest();
+            }
+
+            await _ordersService.UpdateAsync(order);
+
+            return Ok();
+        }
     }
 }
