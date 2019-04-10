@@ -26,10 +26,7 @@ namespace Pharmacy.Framework
         }
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            var id = new ClaimsIdentity();
-            id.AddClaim(new Claim(ClaimTypes.Role, "Client"));
-            this.Context.User.AddIdentity(id);
-            return AuthenticateResult.NoResult();
+            return await Task.FromResult(AuthenticateResult.NoResult());
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Pharmacy.Infrastructure.DTO;
 
-namespace Pharmacy.Infrastructure.Services
+namespace Pharmacy.Infrastructure.Services.Interfaces
 {
     public interface IMedicamentService : IService
     {

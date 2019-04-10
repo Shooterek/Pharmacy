@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Infrastructure.EF;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyContext))]
-    partial class PharmacyContextModelSnapshot : ModelSnapshot
+    [Migration("20190410094945_AddOrdersTable")]
+    partial class AddOrdersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,15 +44,13 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("DateOfFinalization");
+                    b.Property<DateTime>("DateOfFinalization");
 
                     b.Property<DateTime>("DateOfIssue");
 
                     b.Property<Guid>("PharmacistId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PharmacistId");
 
                     b.ToTable("Orders");
                 });
@@ -80,8 +80,6 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<Guid>("PharmacistId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PharmacistId");
 
                     b.ToTable("Prescriptions");
                 });
@@ -127,32 +125,16 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Pharmacy.Core.Models.Order", b =>
-                {
-                    b.HasOne("Pharmacy.Core.Models.User", "Pharmacist")
-                        .WithMany()
-                        .HasForeignKey("PharmacistId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Pharmacy.Core.Models.OrderElement", b =>
                 {
                     b.HasOne("Pharmacy.Core.Models.Medicament", "Medicament")
-                        .WithMany("OrderElements")
+                        .WithMany()
                         .HasForeignKey("MedicamentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Pharmacy.Core.Models.Order", "Order")
-                        .WithMany("Elements")
+                        .WithMany("OrderElements")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Pharmacy.Core.Models.Prescription", b =>
-                {
-                    b.HasOne("Pharmacy.Core.Models.User", "Pharmacist")
-                        .WithMany()
-                        .HasForeignKey("PharmacistId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

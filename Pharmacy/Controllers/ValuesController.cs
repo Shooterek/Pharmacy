@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Services;
+using Pharmacy.Infrastructure.Services.Interfaces;
 
 namespace Pharmacy.Controllers
 {
@@ -22,7 +23,7 @@ namespace Pharmacy.Controllers
             _prescriptionService = prescriptionService;
         }
 
-        [Authorize(Policy = "Client")]
+        [Authorize(Policy = "Admin")]
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)

@@ -1,21 +1,20 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Pharmacy.Core.Models;
 
 namespace Pharmacy.Infrastructure.DTO
 {
-    public class PrescriptionDto
+    public class OrderDto
     {
-        protected PrescriptionDto()
+        protected OrderDto()
         {
             DateOfIssue = DateTime.UtcNow;
         }
 
         public Guid Id { get; set; }
         public Guid PharmacistId { get; set; }
+        public UserDto Pharmacist { get; set; }
         public DateTime DateOfIssue { get; set; }
-
-        public IEnumerable<PrescriptionElementDto> Elements { get; set; }
+        public DateTime? DateOfFinalization { get; set; }
+        public IEnumerable<OrderElementDto> Elements { get; set; }
     }
 }

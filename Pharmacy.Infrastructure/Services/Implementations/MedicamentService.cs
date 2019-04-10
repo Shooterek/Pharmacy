@@ -5,8 +5,9 @@ using Pharmacy.Core.Models;
 using Pharmacy.Core.Repositories;
 using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Repositories;
+using Pharmacy.Infrastructure.Services.Interfaces;
 
-namespace Pharmacy.Infrastructure.Services
+namespace Pharmacy.Infrastructure.Services.Implementations
 {
     public class MedicamentService : IMedicamentService
     {

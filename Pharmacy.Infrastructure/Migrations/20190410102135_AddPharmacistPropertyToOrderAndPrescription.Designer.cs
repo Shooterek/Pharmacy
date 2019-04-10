@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Infrastructure.EF;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyContext))]
-    partial class PharmacyContextModelSnapshot : ModelSnapshot
+    [Migration("20190410102135_AddPharmacistPropertyToOrderAndPrescription")]
+    partial class AddPharmacistPropertyToOrderAndPrescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("DateOfFinalization");
+                    b.Property<DateTime>("DateOfFinalization");
 
                     b.Property<DateTime>("DateOfIssue");
 
@@ -138,12 +140,12 @@ namespace Pharmacy.Infrastructure.Migrations
             modelBuilder.Entity("Pharmacy.Core.Models.OrderElement", b =>
                 {
                     b.HasOne("Pharmacy.Core.Models.Medicament", "Medicament")
-                        .WithMany("OrderElements")
+                        .WithMany()
                         .HasForeignKey("MedicamentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Pharmacy.Core.Models.Order", "Order")
-                        .WithMany("Elements")
+                        .WithMany("OrderElements")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -1,7 +1,7 @@
 ﻿using System;
 using Pharmacy.Infrastructure.DTO;
 
-namespace Pharmacy.Infrastructure.Services
+namespace Pharmacy.Infrastructure.Services.Interfaces
 {
     public interface IJwtHandler
     {

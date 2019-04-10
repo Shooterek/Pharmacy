@@ -6,9 +6,10 @@ using Pharmacy.Core.Models;
 using Pharmacy.Core.Repositories;
 using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Exceptions;
+using Pharmacy.Infrastructure.Services.Interfaces;
 using ErrorCodes = Pharmacy.Infrastructure.Exceptions.ErrorCodes;
 
-namespace Pharmacy.Infrastructure.Services
+namespace Pharmacy.Infrastructure.Services.Implementations
 {
     public class UserService : IUserService
     {

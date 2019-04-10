@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pharmacy.Core.Models
 {
-    public class Prescription
+    public class Order
     {
-        protected Prescription()
+        protected Order()
         {
         }
 
@@ -15,7 +13,7 @@ namespace Pharmacy.Core.Models
         public Guid PharmacistId { get; set; }
         public User Pharmacist { get; set; }
         public DateTime DateOfIssue { get; set; }
-
-        public IEnumerable<PrescriptionElement> Elements { get; set; }
+        public DateTime? DateOfFinalization { get; set; }
+        public IEnumerable<OrderElement> Elements { get; set; }
     }
 }
