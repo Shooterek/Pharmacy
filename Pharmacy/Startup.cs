@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +25,7 @@ using Pharmacy.Infrastructure.EF;
 using Pharmacy.Infrastructure.Extensions;
 using Pharmacy.Infrastructure.IoC;
 using Pharmacy.Infrastructure.Settings;
+using Pharmacy.Validators;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Pharmacy
@@ -42,7 +44,8 @@ namespace Pharmacy
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
+                .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented)
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<MedicamentValidator>());
             services.AddDbContext<PharmacyContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -102,6 +105,7 @@ namespace Pharmacy
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info() { Title = "Pharmacy", Version = "v1" });
+                c.AddFluentValidationRules();
             });
 
             var builder = new ContainerBuilder();
@@ -118,6 +122,7 @@ namespace Pharmacy
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
+            app.UseMvc();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
