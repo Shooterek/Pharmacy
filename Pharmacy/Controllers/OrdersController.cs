@@ -48,11 +48,7 @@ namespace Pharmacy.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, OrderDto order)
         {
-            if (id != order.Id)
-            {
-                return BadRequest();
-            }
-
+            order.Id = id;
             await _ordersService.UpdateAsync(order);
 
             return Ok();

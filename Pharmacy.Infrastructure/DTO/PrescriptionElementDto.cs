@@ -11,6 +11,7 @@ namespace Pharmacy.Infrastructure.DTO
         public Guid MedicamentId { get; set; }
         public MedicamentDto Medicament { get; set; }
 
+        public string Dosage { get; set; }
         public int Quantity { get; set; }
     }
 }

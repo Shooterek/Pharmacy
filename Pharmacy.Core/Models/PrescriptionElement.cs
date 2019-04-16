@@ -10,6 +10,7 @@ namespace Pharmacy.Core.Models
         public Guid MedicamentId { get; set; }
         public Medicament Medicament { get; set; }
 
+        public string Dosage { get; set; }
         public int Quantity { get; set; }
     }
 }

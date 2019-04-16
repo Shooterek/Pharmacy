@@ -59,7 +59,8 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             {
                 order.DateOfFinalization = DateTime.UtcNow;
             }
-            _orderRepository.Update(_mapper.Map<OrderDto, Order>(order));
+
+            await _orderRepository.Update(_mapper.Map<OrderDto, Order>(order));
             await _unitOfWork.Commit();
         }
     }

@@ -15,6 +15,8 @@ namespace Pharmacy.Core.Models
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
 
+        public string Education { get; set; }
+
         protected User()
         {
         }

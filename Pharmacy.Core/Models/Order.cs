@@ -7,6 +7,7 @@ namespace Pharmacy.Core.Models
     {
         protected Order()
         {
+            Elements = new List<OrderElement>();
         }
 
         public Guid Id { get; set; }
@@ -15,6 +16,6 @@ namespace Pharmacy.Core.Models
         public string Status { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime? DateOfFinalization { get; set; }
-        public IEnumerable<OrderElement> Elements { get; set; }
+        public ICollection<OrderElement> Elements { get; set; }
     }
 }

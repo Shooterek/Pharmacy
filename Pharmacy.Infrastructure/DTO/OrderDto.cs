@@ -8,6 +8,7 @@ namespace Pharmacy.Infrastructure.DTO
         protected OrderDto()
         {
             DateOfIssue = DateTime.UtcNow;
+            Elements = new List<OrderElementDto>();
         }
 
         public Guid Id { get; set; }
@@ -16,6 +17,6 @@ namespace Pharmacy.Infrastructure.DTO
         public string Status { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime? DateOfFinalization { get; set; }
-        public IEnumerable<OrderElementDto> Elements { get; set; }
+        public ICollection<OrderElementDto> Elements { get; set; }
     }
 }
