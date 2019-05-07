@@ -10,5 +10,6 @@ namespace Pharmacy.Infrastructure.Services.Interfaces
         Task<IEnumerable<UserDto>> BrowseAsync();
         Task RegisterAsync(RegisterUserDto registerUserDto);
         Task LoginAsync(string email, string password);
+        Task UpdateAsync(UserDto user);
     }
 }
