@@ -57,10 +57,13 @@ namespace Pharmacy.Infrastructure.Services.Implementations
         {
             if (order.Status.Equals(OrderStatus.Completed) && order.DateOfFinalization == null)
             {
-                order.DateOfFinalization = DateTime.UtcNow;
+                await _orderRepository.FinalizeAsync(_mapper.Map<OrderDto, Order>(order));
+            }
+            else
+            {
+                await _orderRepository.UpdateAsync(_mapper.Map<OrderDto, Order>(order));
             }
 
-            await _orderRepository.Update(_mapper.Map<OrderDto, Order>(order));
             await _unitOfWork.Commit();
         }
     }

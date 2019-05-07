@@ -41,10 +41,17 @@ namespace Pharmacy.Infrastructure.Services.Implementations
         public async Task LoginAsync(string email, string password)
         {
             var user = await _userRepository.GetAsync(email);
+
             if (user == null)
             {
-                throw new ServiceException(ErrorCodes.InvalidCredentials,
-                    "Invalid credentials");
+                throw new ServiceException(ErrorCodes.UserNotFound,
+                    "User not found");
+            }
+
+            if (!user.IsActive)
+            {
+                throw new ServiceException(ErrorCodes.InactiveUserLoginAttempt,
+                    "Inactive user login attempt");
             }
 
             var hash = _encrypter.GetHash(password, user.Salt);
@@ -54,6 +61,11 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             }
             throw new ServiceException(ErrorCodes.InvalidCredentials,
                 "Invalid credentials");
+        }
+
+        public async Task UpdateAsync(UserDto user)
+        {
+            await _userRepository.UpdateAsync(_mapper.Map<UserDto, User>(user));
         }
 
         public async Task RegisterAsync(RegisterUserDto registerUserDto)
@@ -67,7 +79,8 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
             var salt = _encrypter.GetSalt(registerUserDto.Password);
             var hash = _encrypter.GetHash(registerUserDto.Password, salt);
-            user = new User(Guid.NewGuid(), registerUserDto.Email, registerUserDto.Username, registerUserDto.Fullname, registerUserDto.Role, hash, salt);
+            user = new User(Guid.NewGuid(), registerUserDto.Email, registerUserDto.Username, registerUserDto.Fullname,
+                registerUserDto.Role, registerUserDto.Education, hash, salt);
             await _userRepository.AddAsync(user);
         }
     }

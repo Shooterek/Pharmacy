@@ -38,11 +38,19 @@ namespace Pharmacy.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]RegisterUserDto user)
+        public async Task<IActionResult> Post(RegisterUserDto user)
         {
             await _userService.RegisterAsync(user);
 
             return Created($"api/users/{user.Email}", null);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UserDto user)
+        {
+            await _userService.UpdateAsync(user);
+
+            return Ok();
         }
     }
 }

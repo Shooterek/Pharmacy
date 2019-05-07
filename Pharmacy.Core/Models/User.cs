@@ -14,14 +14,14 @@ namespace Pharmacy.Core.Models
         public string FullName { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
-
         public string Education { get; set; }
+        public bool IsActive { get; set; }
 
         protected User()
         {
         }
 
-        public User(Guid userId, string email, string username, string fullname, string role, string password, string salt)
+        public User(Guid userId, string email, string username, string fullname, string role, string education, string password, string salt)
         {
             Id = userId;
             SetEmail(email);
@@ -30,6 +30,7 @@ namespace Pharmacy.Core.Models
             FullName = fullname;
             SetPassword(password, salt);
             CreatedAt = DateTime.UtcNow;
+            Education = education;
         }
 
         public void SetUsername(string username)
@@ -88,6 +89,12 @@ namespace Pharmacy.Core.Models
             }
             Password = password;
             Salt = salt;
+            UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void SetActivity(bool isActive)
+        {
+            IsActive = isActive;
             UpdatedAt = DateTime.UtcNow;
         }
     }
