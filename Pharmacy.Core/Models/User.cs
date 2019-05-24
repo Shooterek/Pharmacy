@@ -31,6 +31,7 @@ namespace Pharmacy.Core.Models
             SetPassword(password, salt);
             CreatedAt = DateTime.UtcNow;
             Education = education;
+            IsActive = true;
         }
 
         public void SetUsername(string username)
