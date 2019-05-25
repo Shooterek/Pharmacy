@@ -47,7 +47,8 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             return new JwtDto
             {
                 Token = token,
-                Expires = expires.ToTimestamp()
+                Expires = expires.ToTimestamp(),
+                Role = role
             };
         }
     }
