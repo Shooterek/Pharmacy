@@ -10,6 +10,11 @@ namespace Pharmacy.Infrastructure.Mappers
             => new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<User, UserDto>();
+                    cfg.CreateMap<UserDto, User>()
+                        .ForMember(x => x.Password, member => member.Ignore())
+                        .ForMember(x => x.Salt, member => member.Ignore())
+                        .ForMember(x => x.CreatedAt, member => member.Ignore())
+                        .ForMember(x => x.UpdatedAt, member => member.Ignore());
                     cfg.CreateMap<Medicament, MedicamentDto>();
                     cfg.CreateMap<MedicamentDto, Medicament>()
                         .ForMember(x => x.PrescriptionElements, member => member.Ignore())
