@@ -15,5 +15,7 @@ namespace Pharmacy.Core.Models
 
         public IEnumerable<PrescriptionElement> PrescriptionElements { get; set; }
         public IEnumerable<OrderElement> OrderElements { get; set; }
+
+        public IEnumerable<SaleElement> SaleElements { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Infrastructure.EF;
 
 namespace Pharmacy.Infrastructure.Migrations
 {
     [DbContext(typeof(PharmacyContext))]
-    partial class PharmacyContextModelSnapshot : ModelSnapshot
+    [Migration("20190526182735_AddSalesTable")]
+    partial class AddSalesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,6 +99,8 @@ namespace Pharmacy.Infrastructure.Migrations
 
                     b.Property<string>("PeselNumberOfThePatient");
 
+                    b.Property<Guid>("PharmacistId");
+
                     b.Property<string>("Provider");
 
                     b.Property<Guid>("SaleId");
@@ -108,6 +112,8 @@ namespace Pharmacy.Infrastructure.Migrations
                     b.Property<string>("SurnameOfThePatient");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PharmacistId");
 
                     b.HasIndex("SaleId");
 
@@ -215,6 +221,11 @@ namespace Pharmacy.Infrastructure.Migrations
 
             modelBuilder.Entity("Pharmacy.Core.Models.Prescription", b =>
                 {
+                    b.HasOne("Pharmacy.Core.Models.User", "Pharmacist")
+                        .WithMany()
+                        .HasForeignKey("PharmacistId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Pharmacy.Core.Models.Sale")
                         .WithMany("Prescriptions")
                         .HasForeignKey("SaleId")

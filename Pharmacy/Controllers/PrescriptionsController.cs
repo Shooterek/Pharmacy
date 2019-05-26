@@ -41,7 +41,6 @@ namespace Pharmacy.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(PrescriptionDto prescription)
         {
-            prescription.PharmacistId = new Guid(User.Identity.Name);
             var result = await _prescriptionService.AddAsync(prescription);
 
             return Created($"api/prescriptions/{result.Id}", result);

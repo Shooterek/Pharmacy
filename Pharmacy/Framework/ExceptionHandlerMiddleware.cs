@@ -32,7 +32,7 @@ namespace Pharmacy.Framework
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-                var errorCode = "error";
+            var errorCode = "error";
             var statusCode = HttpStatusCode.BadRequest;
             var exceptionType = exception.GetType();
             switch (exception)

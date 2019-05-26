@@ -7,6 +7,7 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190410121430_UpdateOrdersRelations.cs" />
     <Compile Remove="Migrations\20190410123208_ChangeDateOfFinalizationToNullableDateTime.cs" />
+    <Compile Remove="Migrations\20190526175614_AddSaleTable.cs" />
   </ItemGroup>
 
   <ItemGroup>

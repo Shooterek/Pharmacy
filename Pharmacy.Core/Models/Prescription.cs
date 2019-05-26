@@ -12,8 +12,9 @@ namespace Pharmacy.Core.Models
         }
 
         public Guid Id { get; set; }
-        public Guid PharmacistId { get; set; }
-        public User Pharmacist { get; set; }
+
+        public Guid SaleId { get; set; }
+
         public DateTime DateOfIssue { get; set; }
         public DateTime? DateOfFinalization { get; set; }
 

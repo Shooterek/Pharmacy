@@ -13,6 +13,8 @@ namespace Pharmacy.Infrastructure.EF
         public DbSet<PrescriptionElement> PrescriptionElements { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderElement> OrderElements { get; set; }
+        public DbSet<Sale> Sales{ get; set; }
+        public DbSet<SaleElement> SaleElements { get; set; }
 
         public PharmacyContext(DbContextOptions<PharmacyContext> options) : base(options)
         {
@@ -25,6 +27,12 @@ namespace Pharmacy.Infrastructure.EF
 
             var medicamentItemBuilder = modelBuilder.Entity<Medicament>();
             medicamentItemBuilder.HasKey(x => x.Id);
+
+            var saleItemBuilder = modelBuilder.Entity<Sale>();
+            saleItemBuilder.HasKey(x => x.Id);
+
+            saleItemBuilder
+                .HasMany(x => x.Prescriptions);
 
             var prescriptionItemBuilder = modelBuilder.Entity<Prescription>();
             prescriptionItemBuilder.HasKey(x => x.Id);
@@ -57,6 +65,19 @@ namespace Pharmacy.Infrastructure.EF
                 .HasOne(x => x.Prescription)
                 .WithMany(x => x.Elements)
                 .HasForeignKey(x => x.PrescriptionId);
+
+            var saleElementItemBuilder = modelBuilder.Entity<SaleElement>();
+            saleElementItemBuilder.HasKey(x => new { x.MedicamentId, x.SaleId });
+
+            saleElementItemBuilder
+                .HasOne(x => x.Medicament)
+                .WithMany(x => x.SaleElements)
+                .HasForeignKey(x => x.MedicamentId);
+
+            saleElementItemBuilder
+                .HasOne(x => x.Sale)
+                .WithMany(x => x.MedicamentsSoldWithoutPrescription)
+                .HasForeignKey(x => x.SaleId);
         }
     }
 }
