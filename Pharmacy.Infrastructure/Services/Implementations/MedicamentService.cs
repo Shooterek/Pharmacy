@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Pharmacy.Core.Models;
@@ -20,6 +21,13 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             _medicamentRepository = medicamentRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<MedicamentDto> GetAsync(Guid id)
+        {
+            var medicament = await _medicamentRepository.GetAsync(id);
+
+            return _mapper.Map<Medicament, MedicamentDto>(medicament);
         }
 
         public async Task<IEnumerable<MedicamentDto>> GetAllAsync()
