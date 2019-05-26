@@ -12,5 +12,6 @@ namespace Pharmacy.Infrastructure.DTO
         public bool IsRefunded { get; set; }
         public int PercentageOfRefund { get; set; }
         public int Quantity { get; set; }
+        public string Comment { get; set; }
     }
 }
