@@ -11,6 +11,7 @@ namespace Pharmacy.Infrastructure.DTO
         public string EanCode { get; set; }
         public bool IsRefunded { get; set; }
         public int PercentageOfRefund { get; set; }
+        public decimal SellingPrice { get; set; }
         public int Quantity { get; set; }
         public string Comment { get; set; }
     }
