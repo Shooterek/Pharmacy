@@ -35,13 +35,13 @@ namespace Pharmacy.Controllers
             //TODO Add validation
             var result = await _medicamentService.AddAsync(medicament);
 
-            return Created($"api/medicaments/{result.Id}", result);
+            return Created($"api/medicaments/{result.EanCode}", result);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, MedicamentDto medicament)
+        [HttpPut("{ean}")]
+        public async Task<IActionResult> Update(string ean, MedicamentDto medicament)
         {
-            if (id != medicament.Id)
+            if (ean != medicament.EanCode)
             {
                 return BadRequest();
             }

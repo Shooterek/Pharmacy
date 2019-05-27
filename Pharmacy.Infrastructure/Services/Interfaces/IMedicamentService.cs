@@ -7,7 +7,7 @@ namespace Pharmacy.Infrastructure.Services.Interfaces
 {
     public interface IMedicamentService : IService
     {
-        Task<MedicamentDto> GetAsync(Guid id);
+        Task<MedicamentDto> GetAsync(string ean);
         Task<IEnumerable<MedicamentDto>> GetAllAsync();
         Task<MedicamentDto> AddAsync(MedicamentDto medicament);
         Task UpdateAsync(MedicamentDto medicament);

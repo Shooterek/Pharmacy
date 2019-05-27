@@ -32,32 +32,32 @@ namespace Pharmacy.Infrastructure.Services.Implementations
         {
             var result = _saleRepository.Add(_mapper.Map<SaleDto, Sale>(sale));
 
-            Dictionary<Guid, int> elements = new Dictionary<Guid, int>();
+            Dictionary<string, int> elements = new Dictionary<string, int>();
 
             foreach (var resultPrescription in result.Prescriptions)
             {
                 foreach (var prescriptionElement in resultPrescription.Elements)
                 {
-                    if (elements.ContainsKey(prescriptionElement.MedicamentId))
+                    if (elements.ContainsKey(prescriptionElement.EanCode))
                     {
-                        elements[prescriptionElement.MedicamentId] += prescriptionElement.Quantity;
+                        elements[prescriptionElement.EanCode] += prescriptionElement.Quantity;
                     }
                     else
                     {
-                        elements.Add(prescriptionElement.MedicamentId, prescriptionElement.Quantity);
+                        elements.Add(prescriptionElement.EanCode, prescriptionElement.Quantity);
                     }
                 }
             }
 
             foreach (var saleElement in sale.MedicamentsSoldWithoutPrescription)
             {
-                if (elements.ContainsKey(saleElement.MedicamentId))
+                if (elements.ContainsKey(saleElement.EanCode))
                 {
-                    elements[saleElement.MedicamentId] += saleElement.Quantity;
+                    elements[saleElement.EanCode] += saleElement.Quantity;
                 }
                 else
                 {
-                    elements.Add(saleElement.MedicamentId, saleElement.Quantity);
+                    elements.Add(saleElement.EanCode, saleElement.Quantity);
                 }
             }
 

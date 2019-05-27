@@ -26,7 +26,7 @@ namespace Pharmacy.Infrastructure.EF
             userItemBuilder.HasKey(x => x.Id);
 
             var medicamentItemBuilder = modelBuilder.Entity<Medicament>();
-            medicamentItemBuilder.HasKey(x => x.Id);
+            medicamentItemBuilder.HasKey(x => x.EanCode);
 
             var saleItemBuilder = modelBuilder.Entity<Sale>();
             saleItemBuilder.HasKey(x => x.Id);
@@ -41,12 +41,12 @@ namespace Pharmacy.Infrastructure.EF
             orderItemBuilder.HasKey(x => x.Id);
 
             var orderElementItemBuilder = modelBuilder.Entity<OrderElement>();
-            orderElementItemBuilder.HasKey(x => new { x.MedicamentId, x.OrderId });
+            orderElementItemBuilder.HasKey(x => new { x.EanCode, x.OrderId });
 
             orderElementItemBuilder
                 .HasOne(x => x.Medicament)
                 .WithMany(x => x.OrderElements)
-                .HasForeignKey(x => x.MedicamentId);
+                .HasForeignKey(x => x.EanCode);
 
             orderElementItemBuilder
                 .HasOne(x => x.Order)
@@ -54,12 +54,12 @@ namespace Pharmacy.Infrastructure.EF
                 .HasForeignKey(x => x.OrderId);
 
             var prescriptionElementItemBuilder = modelBuilder.Entity<PrescriptionElement>();
-            prescriptionElementItemBuilder.HasKey(x => new {x.MedicamentId, x.PrescriptionId});
+            prescriptionElementItemBuilder.HasKey(x => new {x.EanCode, x.PrescriptionId});
 
             prescriptionElementItemBuilder
                 .HasOne(x => x.Medicament)
                 .WithMany(x => x.PrescriptionElements)
-                .HasForeignKey(x => x.MedicamentId);
+                .HasForeignKey(x => x.EanCode);
 
             prescriptionElementItemBuilder
                 .HasOne(x => x.Prescription)
@@ -67,12 +67,12 @@ namespace Pharmacy.Infrastructure.EF
                 .HasForeignKey(x => x.PrescriptionId);
 
             var saleElementItemBuilder = modelBuilder.Entity<SaleElement>();
-            saleElementItemBuilder.HasKey(x => new { x.MedicamentId, x.SaleId });
+            saleElementItemBuilder.HasKey(x => new { x.EanCode, x.SaleId });
 
             saleElementItemBuilder
                 .HasOne(x => x.Medicament)
                 .WithMany(x => x.SaleElements)
-                .HasForeignKey(x => x.MedicamentId);
+                .HasForeignKey(x => x.EanCode);
 
             saleElementItemBuilder
                 .HasOne(x => x.Sale)

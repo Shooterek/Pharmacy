@@ -10,7 +10,7 @@ namespace Pharmacy.Infrastructure.DTO
         [JsonIgnore]
         public SaleDto Sale { get; set; }
 
-        public Guid MedicamentId { get; set; }
+        public string EanCode{ get; set; }
         public MedicamentDto Medicament { get; set; }
 
         public int Quantity { get; set; }

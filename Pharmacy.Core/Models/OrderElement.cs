@@ -9,7 +9,7 @@ namespace Pharmacy.Core.Models
         public Guid OrderId{ get; set; }
         public Order Order { get; set; }
 
-        public Guid MedicamentId { get; set; }
+        public string EanCode { get; set; }
         public Medicament Medicament { get; set; }
 
         public int Quantity { get; set; }

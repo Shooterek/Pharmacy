@@ -23,9 +23,9 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<MedicamentDto> GetAsync(Guid id)
+        public async Task<MedicamentDto> GetAsync(string ean)
         {
-            var medicament = await _medicamentRepository.GetAsync(id);
+            var medicament = await _medicamentRepository.GetAsync(ean);
 
             return _mapper.Map<Medicament, MedicamentDto>(medicament);
         }

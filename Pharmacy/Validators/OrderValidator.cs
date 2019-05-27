@@ -28,12 +28,12 @@ namespace Pharmacy.Validators
 
         private void UniqueItems(IEnumerable<OrderElementDto> arg1, CustomContext arg2)
         {
-            var set = new HashSet<Guid>();
+            var set = new HashSet<string>();
             foreach (var t in arg1)
             {
-                if (!set.Add(t.MedicamentId))
+                if (!set.Add(t.EanCode))
                 {
-                    arg2.AddFailure("The list cannot contain elements with the same medicamentId");
+                    arg2.AddFailure("The list cannot contain elements with the same ean code");
                 }
             }
         }

@@ -20,8 +20,8 @@ namespace Pharmacy.Infrastructure.Repositories
         public async Task<IEnumerable<Medicament>> GetAllAsync()
             => await _context.Medicaments.ToListAsync();
 
-        public async Task<Medicament> GetAsync(Guid id)
-            => await _context.Medicaments.SingleOrDefaultAsync(m => m.Id == id);
+        public async Task<Medicament> GetAsync(string ean)
+            => await _context.Medicaments.SingleOrDefaultAsync(m => m.EanCode.Equals(ean));
 
         public Medicament Add(Medicament medicament)
         {

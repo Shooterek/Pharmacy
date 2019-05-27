@@ -12,7 +12,7 @@ namespace Pharmacy.Validators
         public PrescriptionElementValidator()
         {
             RuleFor(pe => pe.Quantity).GreaterThan(0);
-            RuleFor(pe => pe.MedicamentId).NotEmpty();
+            RuleFor(pe => pe.EanCode).NotEmpty();
         }
     }
 }

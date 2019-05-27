@@ -31,7 +31,7 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
             foreach (var prescriptionElement in result.Elements)
             {
-                var medicine = await _medicamentRepository.GetAsync(prescriptionElement.MedicamentId);
+                var medicine = await _medicamentRepository.GetAsync(prescriptionElement.EanCode);
                 medicine.Quantity -= prescriptionElement.Quantity;
             }
 

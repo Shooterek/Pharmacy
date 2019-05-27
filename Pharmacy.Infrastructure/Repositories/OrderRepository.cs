@@ -44,10 +44,10 @@ namespace Pharmacy.Infrastructure.Repositories
                 // Delete elements
                 foreach (var item in existingOrder.Elements)
                 {
-                    if(order.Elements.All(o => o.MedicamentId != item.MedicamentId))
+                    if(!order.Elements.All(o => o.EanCode.Equals(item.EanCode)))
                     {
                         var element = await _pharmacyContext.OrderElements.FirstAsync(x =>
-                            x.MedicamentId == item.MedicamentId && x.OrderId == item.OrderId);
+                            x.EanCode.Equals(item.EanCode) && x.OrderId == item.OrderId);
                         _pharmacyContext.OrderElements.Remove(element);
                     }
                 }
@@ -55,7 +55,7 @@ namespace Pharmacy.Infrastructure.Repositories
                 // Add or update new elements
                 foreach (var item in order.Elements)
                 {
-                    var existingElement = existingOrder.Elements.SingleOrDefault(e => e.MedicamentId == item.MedicamentId);
+                    var existingElement = existingOrder.Elements.SingleOrDefault(e => e.EanCode.Equals(item.EanCode));
 
                     if(existingElement != null)
                     {
