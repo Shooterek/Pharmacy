@@ -84,9 +84,11 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             return _mapper.Map<IEnumerable<Sale>, IEnumerable<SaleDto>>(sales);
         }
 
-        public Task<SaleDto> GetAsync(Guid id)
+        public async Task<SaleDto> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var sale = await _saleRepository.GetAsync(id);
+
+            return _mapper.Map<Sale, SaleDto>(sale);
         }
     }
 }
