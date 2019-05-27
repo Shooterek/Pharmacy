@@ -21,8 +21,15 @@ namespace Pharmacy.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(bool? createNew)
         {
+            if (createNew.GetValueOrDefault(false))
+            {
+                var newOrder = await _ordersService.PrepareNewOrder();
+
+                return Ok(newOrder);
+            }
+
             var orders = await _ordersService.GetAllAsync();
 
             return Ok(orders);

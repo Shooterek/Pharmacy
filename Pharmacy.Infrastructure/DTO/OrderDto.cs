@@ -5,7 +5,7 @@ namespace Pharmacy.Infrastructure.DTO
 {
     public class OrderDto
     {
-        protected OrderDto()
+        public OrderDto()
         {
             DateOfIssue = DateTime.UtcNow;
             Elements = new List<OrderElementDto>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -16,14 +17,16 @@ namespace Pharmacy.Infrastructure.Services.Implementations
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IMedicamentRepository _medicamentRepository;
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, UnitOfWork unitOfWork, IMapper mapper)
+        public OrderService(IOrderRepository orderRepository, UnitOfWork unitOfWork, IMapper mapper, IMedicamentRepository medicamentRepository)
         {
             _orderRepository = orderRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _medicamentRepository = medicamentRepository;
         }
 
         public async Task<IEnumerable<OrderDto>> GetAllAsync()
@@ -65,6 +68,30 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             }
 
             await _unitOfWork.Commit();
+        }
+
+        public async Task<OrderDto> PrepareNewOrder()
+        {
+            var medicaments = await _medicamentRepository.GetAllAsync();
+            var medicamentsWithNegativeQuantity = medicaments.Where(m => m.Quantity < 0);
+
+            var orderElements = new List<OrderElementDto>();
+
+            foreach (var medicament in medicamentsWithNegativeQuantity)
+            {
+                orderElements.Add(new OrderElementDto()
+                {
+                    EanCode = medicament.EanCode,
+                    Quantity = 0 - medicament.Quantity
+                });
+            }
+
+            var newOrder = new OrderDto()
+            {
+                Elements = orderElements
+            };
+
+            return newOrder;
         }
     }
 }
