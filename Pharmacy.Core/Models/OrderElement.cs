@@ -13,5 +13,6 @@ namespace Pharmacy.Core.Models
         public Medicament Medicament { get; set; }
 
         public int Quantity { get; set; }
+        public decimal Price { get; set; } // unit purchase price
     }
 }

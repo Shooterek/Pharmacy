@@ -11,5 +11,6 @@ namespace Pharmacy.Infrastructure.DTO
         public MedicamentDto Medicament { get; set; }
 
         public int Quantity { get; set; }
+        public decimal Price { get; set; } // unit purchase price
     }
 }
