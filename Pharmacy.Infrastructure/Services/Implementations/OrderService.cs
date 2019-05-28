@@ -58,17 +58,22 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
         public async Task<bool> UpdateAsync(OrderDto order)
         {
-            if (order.Status.Equals(OrderStatus.Completed) && order.DateOfFinalization == null)
+            bool result;
+
+            if (order.Status.Equals(OrderStatus.Completed))
             {
-                await _orderRepository.FinalizeAsync(_mapper.Map<OrderDto, Order>(order));
+                // We're completing the order. After the order is completed, no further
+                // changes can be made to it.
+                result = await _orderRepository.FinalizeAsync(_mapper.Map<OrderDto, Order>(order));
             }
             else
             {
-                await _orderRepository.UpdateAsync(_mapper.Map<OrderDto, Order>(order));
+                // We're just updating an order that hasn't yet been completed.
+                result = await _orderRepository.UpdateAsync(_mapper.Map<OrderDto, Order>(order));
             }
 
             await _unitOfWork.Commit();
-            return true;
+            return result;
         }
 
         public async Task<OrderDto> PrepareNewOrder()

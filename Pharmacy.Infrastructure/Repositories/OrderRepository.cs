@@ -32,7 +32,7 @@ namespace Pharmacy.Infrastructure.Repositories
         public async Task<Order> GetAsync(Guid id)
             => await _pharmacyContext.Orders.Include(o => o.Elements).SingleOrDefaultAsync(o => o.Id == id);
 
-        public async Task UpdateAsync(Order order)
+        public async Task<bool> UpdateAsync(Order order)
         {
             var existingOrder = await _pharmacyContext.Orders.Include(o => o.Elements).AsNoTracking().SingleAsync(o => o.Id == order.Id);
 
@@ -69,9 +69,11 @@ namespace Pharmacy.Infrastructure.Repositories
                     }
                 }
             }
+
+            return true;
         }
 
-        public async Task FinalizeAsync(Order order)
+        public async Task<bool> FinalizeAsync(Order order)
         {
             var existingOrder = await _pharmacyContext.Orders.SingleAsync(o => o.Id == order.Id);
 
@@ -87,6 +89,8 @@ namespace Pharmacy.Infrastructure.Repositories
                     orderElement.Medicament.Quantity += orderElement.Quantity;
                 }
             }
+
+            return true;
         }
     }
 }
