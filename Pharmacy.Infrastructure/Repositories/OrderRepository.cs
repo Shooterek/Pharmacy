@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Pharmacy.Core.Models;
 using Pharmacy.Core.Repositories;
+using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.EF;
 
 namespace Pharmacy.Infrastructure.Repositories
@@ -39,6 +40,12 @@ namespace Pharmacy.Infrastructure.Repositories
             if (existingOrder != null)
             {
                 var exOrder = await _pharmacyContext.Orders.FirstAsync(x => x.Id == order.Id);
+
+                // If the order was already completed, we can't do anything more with it.
+                if (exOrder.Status == OrderStatus.Completed) {
+                    return false;
+                }
+
                 exOrder.Status = order.Status;
                 exOrder.DateOfFinalization = order.DateOfFinalization;
                 // Delete elements
@@ -68,9 +75,13 @@ namespace Pharmacy.Infrastructure.Repositories
                         _pharmacyContext.OrderElements.Add(item);
                     }
                 }
-            }
 
-            return true;
+                // Updated successfully.
+                return true;
+            } else {
+                // Nothing to update. Error.
+                return false;
+            }
         }
 
         public async Task<bool> FinalizeAsync(Order order)
@@ -79,6 +90,11 @@ namespace Pharmacy.Infrastructure.Repositories
 
             if (existingOrder != null)
             {
+                // If the order was already completed, we can't do anything more with it.
+                if (existingOrder.Status == OrderStatus.Completed) {
+                    return false;
+                }
+
                 existingOrder.Status = order.Status;
                 existingOrder.DateOfFinalization = DateTime.UtcNow;
 
@@ -88,9 +104,13 @@ namespace Pharmacy.Infrastructure.Repositories
                 {
                     orderElement.Medicament.Quantity += orderElement.Quantity;
                 }
-            }
 
-            return true;
+                // Finalization was successful.
+                return true;
+            } else {
+                // This order doesn't exist. This means we can't finalize the order.
+                return false;
+            }
         }
     }
 }
