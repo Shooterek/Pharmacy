@@ -56,9 +56,12 @@ namespace Pharmacy.Controllers
         public async Task<IActionResult> Update(Guid id, OrderDto order)
         {
             order.Id = id;
-            await _ordersService.UpdateAsync(order);
+            bool wasOk = await _ordersService.UpdateAsync(order);
 
-            return Ok();
+            if (wasOk)
+                return Ok();
+            else
+                return Forbid();
         }
     }
 }

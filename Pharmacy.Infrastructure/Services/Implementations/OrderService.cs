@@ -56,7 +56,7 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             return _mapper.Map<Order, OrderDto>(result);
         }
 
-        public async Task UpdateAsync(OrderDto order)
+        public async Task<bool> UpdateAsync(OrderDto order)
         {
             if (order.Status.Equals(OrderStatus.Completed) && order.DateOfFinalization == null)
             {
@@ -68,6 +68,7 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             }
 
             await _unitOfWork.Commit();
+            return true;
         }
 
         public async Task<OrderDto> PrepareNewOrder()
