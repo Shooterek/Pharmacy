@@ -29,6 +29,14 @@ namespace Pharmacy.Controllers
             return Ok(medicaments);
         }
 
+        [HttpGet("{ean}")]
+        public async Task<IActionResult> Get(string ean)
+        {
+            var medicament = await _medicamentService.GetAsync(ean);
+
+            return Ok(medicament);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(MedicamentDto medicament)
         {
