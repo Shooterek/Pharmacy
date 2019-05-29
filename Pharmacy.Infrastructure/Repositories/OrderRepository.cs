@@ -33,6 +33,22 @@ namespace Pharmacy.Infrastructure.Repositories
         public async Task<Order> GetAsync(Guid id)
             => await _pharmacyContext.Orders.Include(o => o.Elements).SingleOrDefaultAsync(o => o.Id == id);
 
+        public async Task<bool> CancelAsync(Guid id)
+        {
+            var order = await GetAsync(id);
+            if (order != null) {
+                if (order.Status == OrderStatus.Created) {
+                    _pharmacyContext.Orders.Remove(order);
+                    return true;
+                } else {
+                    // Forbidden to cancel an already completed order.
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
         public async Task<bool> UpdateAsync(Order order)
         {
             var existingOrder = await _pharmacyContext.Orders.Include(o => o.Elements).AsNoTracking().SingleAsync(o => o.Id == order.Id);

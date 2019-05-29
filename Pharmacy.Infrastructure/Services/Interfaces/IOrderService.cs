@@ -15,5 +15,7 @@ namespace Pharmacy.Infrastructure.Services.Interfaces
         Task<bool> UpdateAsync(OrderDto order);
 
         Task<OrderDto> PrepareNewOrder();
+
+        Task<bool> CancelAsync(Guid id);
     }
 }

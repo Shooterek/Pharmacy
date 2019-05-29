@@ -63,5 +63,15 @@ namespace Pharmacy.Controllers
             else
                 return Forbid();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            if (await _ordersService.CancelAsync(id)) {
+                return Ok();
+            } else {
+                return NotFound();
+            }
+        }
     }
 }

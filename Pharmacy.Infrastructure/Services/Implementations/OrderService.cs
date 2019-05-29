@@ -99,5 +99,12 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
             return newOrder;
         }
+
+        public async Task<bool> CancelAsync(Guid id)
+        {
+            bool result = await _orderRepository.CancelAsync(id);
+            await _unitOfWork.Commit();
+            return result;
+        }
     }
 }
