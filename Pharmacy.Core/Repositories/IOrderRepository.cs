@@ -10,6 +10,7 @@ namespace Pharmacy.Core.Repositories
         Task<IEnumerable<Order>> GetAllAsync();
         Order Add(Order order);
         Task<Order> GetAsync(Guid id);
+        Task<bool> CancelAsync(Guid id);
         Task<bool> UpdateAsync(Order order);
         Task<bool> FinalizeAsync(Order order);
     }
