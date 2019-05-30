@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Pharmacy.Infrastructure.DTO;
 using Pharmacy.Infrastructure.Services;
@@ -29,6 +30,18 @@ namespace Pharmacy.Controllers
         public async Task<IActionResult> Get(string email)
         {
             var user = await _userService.GetAsync(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var user = await _userService.GetAsync(id);
             if (user == null)
             {
                 return NotFound();

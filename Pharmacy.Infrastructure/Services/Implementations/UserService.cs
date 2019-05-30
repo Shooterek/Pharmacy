@@ -31,6 +31,13 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             return _mapper.Map<User, UserDto>(user);
         }
 
+        public async Task<UserDto> GetAsync(Guid id)
+        {
+            var user = await _userRepository.GetAsync(id);
+
+            return _mapper.Map<User, UserDto>(user);
+        }
+
         public async Task<IEnumerable<UserDto>> BrowseAsync()
         {
             var drivers = await _userRepository.GetAllAsync();
