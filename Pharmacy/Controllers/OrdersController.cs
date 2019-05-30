@@ -61,7 +61,7 @@ namespace Pharmacy.Controllers
             if (wasOk)
                 return Ok();
             else
-                return Forbid();
+                return StatusCode(403);
         }
 
         [HttpDelete("{id}")]
