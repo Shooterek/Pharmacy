@@ -26,6 +26,11 @@ namespace Pharmacy.Infrastructure.IoC.Modules
             builder.RegisterType<JwtHandler>()
                 .As<IJwtHandler>()
                 .SingleInstance();
+
+
+            builder.RegisterType<Numerator>()
+                .As<INumerator>()
+                .SingleInstance();
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Pharmacy.Core.Models
         public Guid PharmacistId { get; set; }
         public User Pharmacist { get; set; }
         public string Status { get; set; }
+        public string DocumentName { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime? DateOfFinalization { get; set; }
         public ICollection<OrderElement> Elements { get; set; }

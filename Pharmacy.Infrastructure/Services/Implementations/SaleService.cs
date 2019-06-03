@@ -17,19 +17,23 @@ namespace Pharmacy.Infrastructure.Services.Implementations
         private readonly IMedicamentRepository _medicamentRepository;
         private readonly IPrescriptionRepository _prescriptionRepository;
         private readonly IMapper _mapper;
+        private readonly INumerator _numerator;
         private readonly UnitOfWork _unitOfWork;
 
-        public SaleService(IMedicamentRepository medicamentRepository, IMapper mapper, UnitOfWork unitOfWork, ISaleRepository saleRepository, IPrescriptionRepository prescriptionRepository)
+        public SaleService(IMedicamentRepository medicamentRepository, IMapper mapper, UnitOfWork unitOfWork, ISaleRepository saleRepository, IPrescriptionRepository prescriptionRepository, INumerator numerator)
         {
             _medicamentRepository = medicamentRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _saleRepository = saleRepository;
             _prescriptionRepository = prescriptionRepository;
+            _numerator = numerator;
         }
 
         public async Task<SaleDto> AddAsync(SaleDto sale)
         {
+            _numerator.SetName(sale);
+
             var result = _saleRepository.Add(_mapper.Map<SaleDto, Sale>(sale));
 
             Dictionary<string, int> elements = new Dictionary<string, int>();

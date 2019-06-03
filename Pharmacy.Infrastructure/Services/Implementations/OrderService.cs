@@ -18,15 +18,17 @@ namespace Pharmacy.Infrastructure.Services.Implementations
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IMedicamentRepository _medicamentRepository;
+        private readonly INumerator _numerator;
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public OrderService(IOrderRepository orderRepository, UnitOfWork unitOfWork, IMapper mapper, IMedicamentRepository medicamentRepository)
+        public OrderService(IOrderRepository orderRepository, UnitOfWork unitOfWork, IMapper mapper, IMedicamentRepository medicamentRepository, INumerator numerator)
         {
             _orderRepository = orderRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _medicamentRepository = medicamentRepository;
+            _numerator = numerator;
         }
 
         public async Task<IEnumerable<OrderDto>> GetAllAsync()
@@ -38,6 +40,8 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
         public async Task<OrderDto> AddAsync(OrderDto order)
         {
+            _numerator.SetName(order);
+
             order.Status = OrderStatus.Created;
             var result = _orderRepository.Add(_mapper.Map<OrderDto, Order>(order));
             await _unitOfWork.Commit();

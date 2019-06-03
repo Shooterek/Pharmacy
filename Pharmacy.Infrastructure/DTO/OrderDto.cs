@@ -15,6 +15,7 @@ namespace Pharmacy.Infrastructure.DTO
         public Guid PharmacistId { get; set; }
         public UserDto Pharmacist { get; set; }
         public string Status { get; set; }
+        public string DocumentName { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime? DateOfFinalization { get; set; }
         public ICollection<OrderElementDto> Elements { get; set; }

@@ -13,6 +13,8 @@ namespace Pharmacy.Core.Models
 
         public DateTime DateOfIssue { get; set; }
 
+        public string DocumentName { get; set; }
+
         public ICollection<Prescription> Prescriptions { get; set; }
 
         public ICollection<SaleElement> MedicamentsSoldWithoutPrescription { get; set; }

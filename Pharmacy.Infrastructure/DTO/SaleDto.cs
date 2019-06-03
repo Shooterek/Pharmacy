@@ -17,6 +17,7 @@ namespace Pharmacy.Infrastructure.DTO
 
         public Guid PharmacistId { get; set; }
         public UserDto Pharmacist { get; set; }
+        public string DocumentName { get; set; }
         public DateTime DateOfIssue { get; set; }
         public ICollection<PrescriptionDto> Prescriptions { get; set; }
         public ICollection<SaleElementDto> MedicamentsSoldWithoutPrescription { get; set; }
