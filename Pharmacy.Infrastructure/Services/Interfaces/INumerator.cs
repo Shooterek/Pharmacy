@@ -6,6 +6,5 @@ namespace Pharmacy.Infrastructure.Services.Interfaces
     {
         void SetName(OrderDto order);
         void SetName(SaleDto sale);
-        void SetName(PrescriptionDto prescription);
     }
 }

@@ -34,11 +34,6 @@ namespace Pharmacy.Infrastructure.Services.Implementations
         {
             _numerator.SetName(sale);
 
-            foreach (var prescription in sale.Prescriptions)
-            {
-                _numerator.SetName(prescription);
-            }
-
             var result = _saleRepository.Add(_mapper.Map<SaleDto, Sale>(sale));
 
             Dictionary<string, int> elements = new Dictionary<string, int>();
