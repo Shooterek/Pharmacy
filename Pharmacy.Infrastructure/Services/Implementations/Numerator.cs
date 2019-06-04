@@ -10,11 +10,12 @@ namespace Pharmacy.Infrastructure.Services.Implementations
     {
         private int _orderNumber = 1;
         private int _saleNumber = 1;
+        private int _prescriptionNumber = 1;
 
         public void SetName(OrderDto order)
         {
             var name = new StringBuilder();
-            name.Append("O/")
+            name.Append("Z/")
                 .Append(DateTime.UtcNow.Year)
                 .Append("/")
                 .Append(_orderNumber);
@@ -33,6 +34,18 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             _saleNumber++;
 
             sale.DocumentName = name.ToString();
+        }
+
+        public void SetName(PrescriptionDto prescription)
+        {
+            var name = new StringBuilder();
+            name.Append("R/")
+                .Append(DateTime.UtcNow.Year)
+                .Append("/")
+                .Append(_prescriptionNumber);
+            _prescriptionNumber++;
+
+            prescription.DocumentName = name.ToString();
         }
     }
 }

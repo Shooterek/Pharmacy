@@ -25,6 +25,7 @@ namespace Pharmacy.Core.Models
         public string SurnameOfThePatient { get; set; }
         public string AddressOfThePatient { get; set; }
         public string PeselNumberOfThePatient { get; set; }
+        public string DocumentName { get; set; }
         
         public string NameOfTheDoctor { get; set; }
         public string SurnameOfTheDoctor { get; set; }
