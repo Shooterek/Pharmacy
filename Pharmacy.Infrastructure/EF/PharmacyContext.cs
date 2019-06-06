@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pharmacy.Core.Models;
+using Pharmacy.Infrastructure.Services.Implementations;
 
 namespace Pharmacy.Infrastructure.EF
 {
@@ -22,6 +24,11 @@ namespace Pharmacy.Infrastructure.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var user = CreateFirstUser();
+            modelBuilder.Entity<User>().HasData(
+                user);
+
+
             var userItemBuilder = modelBuilder.Entity<User>();
             userItemBuilder.HasKey(x => x.Id);
 
@@ -78,6 +85,18 @@ namespace Pharmacy.Infrastructure.EF
                 .HasOne(x => x.Sale)
                 .WithMany(x => x.MedicamentsSoldWithoutPrescription)
                 .HasForeignKey(x => x.SaleId);
+        }
+
+
+        private User CreateFirstUser()
+        {
+            var encrypter = new Encrypter();
+            var salt = encrypter.GetSalt("SuperSecurePassword");
+            var hash = encrypter.GetHash("SuperSecurePassword", salt);
+            var user = new User(Guid.NewGuid(), "zdzislaw.grzybowski@gmail.com", "zdzislaw.grzybowski@gmail.com", "Zdzisław Grzybowski",
+                "Admin", "Lekarz psychiatra", hash, salt);
+
+            return user;
         }
     }
 }
