@@ -26,18 +26,6 @@ namespace Pharmacy.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{email}")]
-        public async Task<IActionResult> Get(string email)
-        {
-            var user = await _userService.GetAsync(email);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {

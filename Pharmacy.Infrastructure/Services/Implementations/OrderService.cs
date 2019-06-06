@@ -44,7 +44,7 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             order.Status = OrderStatus.Created;
 
             //If EAN code has 13 digits, then add a leading 0.
-            foreach (var orderElement in order.Elements)
+            foreach (var orderElement in order.Elements.Where(e => e.EanCode.Length == 13))
             {
                 string newEanCode = String.Concat('0') + orderElement.EanCode;
                 orderElement.EanCode = newEanCode;
