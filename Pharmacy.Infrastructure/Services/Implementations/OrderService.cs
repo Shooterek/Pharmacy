@@ -41,8 +41,16 @@ namespace Pharmacy.Infrastructure.Services.Implementations
         public async Task<OrderDto> AddAsync(OrderDto order)
         {
             _numerator.SetName(order);
-
             order.Status = OrderStatus.Created;
+
+            //If EAN code has 13 digits, then add a leading 0.
+            foreach (var orderElement in order.Elements)
+            {
+                string newEanCode = String.Concat('0') + orderElement.EanCode;
+                orderElement.EanCode = newEanCode;
+                orderElement.Medicament.EanCode = newEanCode;
+            }
+
             var result = _orderRepository.Add(_mapper.Map<OrderDto, Order>(order));
             await _unitOfWork.Commit();
 
