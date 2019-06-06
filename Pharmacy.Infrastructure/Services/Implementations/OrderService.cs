@@ -48,7 +48,8 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             {
                 string newEanCode = String.Concat('0') + orderElement.EanCode;
                 orderElement.EanCode = newEanCode;
-                orderElement.Medicament.EanCode = newEanCode;
+                if(orderElement.Medicament != null)
+                    orderElement.Medicament.EanCode = newEanCode;
             }
 
             var result = _orderRepository.Add(_mapper.Map<OrderDto, Order>(order));
