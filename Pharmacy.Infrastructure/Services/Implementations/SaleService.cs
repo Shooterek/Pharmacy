@@ -45,7 +45,7 @@ namespace Pharmacy.Infrastructure.Services.Implementations
                     if (prescriptionElement.EanCode.Length == 13)
                     {
                         prescriptionElement.EanCode = '0' + prescriptionElement.EanCode;
-                        if (prescriptionElement.Medicament != null)
+                        if (prescriptionElement.Medicament.EanCode != null && prescriptionElement.Medicament.EanCode.Length == 13)
                             prescriptionElement.Medicament.EanCode = prescriptionElement.EanCode;
                     }
 
@@ -66,7 +66,8 @@ namespace Pharmacy.Infrastructure.Services.Implementations
                 if (saleElement.EanCode.Length == 13)
                 {
                     saleElement.EanCode = '0' + saleElement.EanCode;
-                    if (saleElement.Medicament != null) saleElement.Medicament.EanCode = saleElement.EanCode;
+                    if (saleElement.Medicament.EanCode != null && saleElement.Medicament.EanCode.Length == 13)
+                        saleElement.Medicament.EanCode = saleElement.EanCode;
                 }
 
                 if (elements.ContainsKey(saleElement.EanCode))

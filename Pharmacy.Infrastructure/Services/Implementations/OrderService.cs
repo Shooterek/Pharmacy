@@ -48,7 +48,7 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             {
                 string newEanCode = String.Concat('0') + orderElement.EanCode;
                 orderElement.EanCode = newEanCode;
-                if(orderElement.Medicament != null)
+                if(orderElement.Medicament.EanCode != null && orderElement.Medicament.EanCode.Length == 13)
                     orderElement.Medicament.EanCode = newEanCode;
             }
 
