@@ -42,6 +42,14 @@ namespace Pharmacy.Infrastructure.Services.Implementations
             {
                 foreach (var prescriptionElement in resultPrescription.Elements)
                 {
+                    if (prescriptionElement.EanCode.Length == 13)
+                    {
+                        prescriptionElement.EanCode = '0' + prescriptionElement.EanCode;
+                        if (prescriptionElement.Medicament != null)
+                            prescriptionElement.Medicament.EanCode = prescriptionElement.EanCode;
+                    }
+
+
                     if (elements.ContainsKey(prescriptionElement.EanCode))
                     {
                         elements[prescriptionElement.EanCode] += prescriptionElement.Quantity;
@@ -55,6 +63,12 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
             foreach (var saleElement in sale.MedicamentsSoldWithoutPrescription)
             {
+                if (saleElement.EanCode.Length == 13)
+                {
+                    saleElement.EanCode = '0' + saleElement.EanCode;
+                    if (saleElement.Medicament != null) saleElement.Medicament.EanCode = saleElement.EanCode;
+                }
+
                 if (elements.ContainsKey(saleElement.EanCode))
                 {
                     elements[saleElement.EanCode] += saleElement.Quantity;

@@ -25,6 +25,11 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
         public async Task<MedicamentDto> GetAsync(string ean)
         {
+            if (ean.Length == 13)
+            {
+                ean = '0' + ean;
+            }
+
             var medicament = await _medicamentRepository.GetAsync(ean);
 
             return _mapper.Map<Medicament, MedicamentDto>(medicament);
@@ -39,6 +44,11 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
         public async Task<MedicamentDto> AddAsync(MedicamentDto medicament)
         {
+            if (medicament.EanCode.Length == 13)
+            {
+                medicament.EanCode = '0' + medicament.EanCode;
+            }
+
             var result = _medicamentRepository.Add(_mapper.Map<MedicamentDto, Medicament>(medicament));
             await _unitOfWork.Commit();
 
@@ -47,6 +57,11 @@ namespace Pharmacy.Infrastructure.Services.Implementations
 
         public async Task UpdateAsync(MedicamentDto medicament)
         {
+            if (medicament.EanCode.Length == 13)
+            {
+                medicament.EanCode = '0' + medicament.EanCode;
+            }
+
             _medicamentRepository.Update(_mapper.Map<MedicamentDto, Medicament>(medicament));
             await _unitOfWork.Commit();
         }

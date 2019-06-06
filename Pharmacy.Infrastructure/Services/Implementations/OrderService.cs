@@ -72,6 +72,13 @@ namespace Pharmacy.Infrastructure.Services.Implementations
         {
             bool result;
 
+            foreach (var orderElement in order.Elements.Where(e => e.EanCode.Length == 13))
+            {
+                string newEanCode = String.Concat('0') + orderElement.EanCode;
+                orderElement.EanCode = newEanCode;
+                orderElement.Medicament.EanCode = newEanCode;
+            }
+
             if (order.Status.Equals(OrderStatus.Completed))
             {
                 // We're completing the order. After the order is completed, no further
