@@ -3,13 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pharmacy", "Pharmacy\Pharmacy.csproj", "{DE3EE4A3-BB71-40C7-A09D-9B71B6EFBFB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pharmacy", "Pharmacy\Pharmacy.csproj", "{DE3EE4A3-BB71-40C7-A09D-9B71B6EFBFB6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{37818E2C-BAFF-4F32-966A-2DB3453E194E} = {37818E2C-BAFF-4F32-966A-2DB3453E194E}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pharmacy.Core", "Pharmacy.Core\Pharmacy.Core.csproj", "{02AB23BB-BE36-41F7-BA64-835244CECC22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pharmacy.Core", "Pharmacy.Core\Pharmacy.Core.csproj", "{02AB23BB-BE36-41F7-BA64-835244CECC22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pharmacy.Infrastructure", "Pharmacy.Infrastructure\Pharmacy.Infrastructure.csproj", "{37818E2C-BAFF-4F32-966A-2DB3453E194E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pharmacy.Infrastructure", "Pharmacy.Infrastructure\Pharmacy.Infrastructure.csproj", "{37818E2C-BAFF-4F32-966A-2DB3453E194E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{02AB23BB-BE36-41F7-BA64-835244CECC22} = {02AB23BB-BE36-41F7-BA64-835244CECC22}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pharmacy.Tests", "Pharmacy.Tests\Pharmacy.Tests.csproj", "{44FC8F64-5A77-4A62-88CD-91CA2A93BE82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pharmacy.Tests", "Pharmacy.Tests\Pharmacy.Tests.csproj", "{44FC8F64-5A77-4A62-88CD-91CA2A93BE82}"
+	ProjectSection(ProjectDependencies) = postProject
+		{37818E2C-BAFF-4F32-966A-2DB3453E194E} = {37818E2C-BAFF-4F32-966A-2DB3453E194E}
+		{DE3EE4A3-BB71-40C7-A09D-9B71B6EFBFB6} = {DE3EE4A3-BB71-40C7-A09D-9B71B6EFBFB6}
+		{02AB23BB-BE36-41F7-BA64-835244CECC22} = {02AB23BB-BE36-41F7-BA64-835244CECC22}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
